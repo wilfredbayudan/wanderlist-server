@@ -37,6 +37,7 @@ class ApplicationController < Sinatra::Base
     pin = request.env['HTTP_PIN']
     bucketlist = Bucketlist.find(params[:id])
     if pin == bucketlist.pin
+      bucketlist.bucketlist_destinations.destroy_all
       bucketlist.destroy
       res = bucketlist
     else
