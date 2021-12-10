@@ -1,10 +1,5 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
-  
-  # Add your routes here
-  get "/" do
-    { message: "Good luck with your project!" }.to_json
-  end
 
   get "/bucketlists" do
     bucketlists = Bucketlist.all
@@ -44,6 +39,11 @@ class ApplicationController < Sinatra::Base
       res = {"error" => "Could not delete, invalid PIN"}
     end
     res.to_json
+  end
+
+  patch "/bucketlists/:id" do
+    pin = request.env['HTTP_PIN']
+    bucketlist = Bucketlist.find(params[:id])
   end
 
   post "/bucketlists" do
