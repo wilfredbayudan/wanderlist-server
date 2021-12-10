@@ -81,6 +81,17 @@ class ApplicationController < Sinatra::Base
     destination.to_json
   end
 
+  patch "/destinations/:id" do
+    destination = Destination.find(params[:id])
+    case params[:method]
+    when 'like'
+      res = destination.like
+    when 'dislike'
+      res = destination.dislike
+    end
+    res.to_json;
+  end
+
   post "/bucketlists/:id/destinations" do
     bucketlist = Bucketlist.find(params[:id])
     if request.env['HTTP_PIN'] == bucketlist.pin

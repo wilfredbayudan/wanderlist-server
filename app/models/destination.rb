@@ -10,8 +10,10 @@ class Destination < ActiveRecord::Base
   end
 
   def dislike
-    self.likes -= 1;
-    self.save
+    if self.likes > 0
+      self.likes -= 1;
+      self.save
+    end
     self.likes
   end
 
