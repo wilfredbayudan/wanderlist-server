@@ -44,6 +44,14 @@ class ApplicationController < Sinatra::Base
   patch "/bucketlists/:id" do
     pin = request.env['HTTP_PIN']
     bucketlist = Bucketlist.find(params[:id])
+    if pin == bucketlist.pin
+      bucketlist.description = params[:description]
+      bucketlist.save
+      res = bucketlist
+    else
+      res = {"error" => "Could not delete, invalid PIN"}
+    end
+    res.to_json
   end
 
   post "/bucketlists" do
