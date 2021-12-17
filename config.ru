@@ -11,5 +11,9 @@ end
 # Parse JSON from the request body into the params hash
 use Rack::JSONBodyParser
 
+# Use other application controllers
+use BucketlistsController
+use DestinationsController
+
 # Our application
 run ApplicationController
