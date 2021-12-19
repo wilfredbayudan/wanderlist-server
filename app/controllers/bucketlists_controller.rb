@@ -23,7 +23,18 @@ class BucketlistsController < Sinatra::Base
       :comments => {}
     })
   end
-  
+
+  patch "/bucketlists/:id" do
+    bucketlist = Bucketlist.find(params[:id])
+    case params[:method]
+    when 'like'
+      res = bucketlist.like
+    when 'dislike'
+      res = bucketlist.dislike
+    end
+    res.to_json;
+  end
+
   delete "/bucketlists/:id" do
     bucketlist = Bucketlist.find(params[:id])
     if request.env['HTTP_PIN'] == bucketlist.pin
