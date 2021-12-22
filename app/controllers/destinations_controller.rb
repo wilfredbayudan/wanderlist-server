@@ -1,19 +1,19 @@
 class DestinationsController < Sinatra::Base
-  
+
   set :default_content_type, 'application/json'
 
   get "/destinations" do
     destinations = Destination.all
     destinations.to_json(:include => {
-      :bucketlists => { only: [:id, :name, :description, :created_by, :likes, :updated_at, :created_at], :include => {
-        :tags => {},
-      }}
+      :bucketlists => { only: [:id, :name, :created_by]}
     })
   end
 
   get "/destinations/:id" do
     destination = Destination.find(params[:id])
-    destination.to_json
+    destination.to_json(:include => {
+      :bucketlists => { only: [:id, :name, :created_by]}
+    })
   end
 
   patch "/destinations/:id" do
