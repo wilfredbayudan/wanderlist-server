@@ -47,6 +47,12 @@ class BucketlistsController < Sinatra::Base
     res.to_json
   end
 
+  delete "/bucketlists/:id/comments/:comment_id" do
+    comment = Comment.find(params[:comment_id])
+    comment.destroy
+    comment.to_json
+  end
+
   post "/bucketlists/:id/comments" do
     bucketlist = Bucketlist.find(params[:id])
     comment = Comment.create(
