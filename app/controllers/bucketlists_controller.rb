@@ -47,6 +47,16 @@ class BucketlistsController < Sinatra::Base
     res.to_json
   end
 
+  post "/bucketlists/:id/comments" do
+    bucketlist = Bucketlist.find(params[:id])
+    comment = Comment.create(
+      created_by: params[:created_by],
+      comment: params[:comment]
+    )
+    bucketlist.comments << comment
+    comment.to_json
+  end
+
   patch "/bucketlists/:id" do
     bucketlist = Bucketlist.find(params[:id])
     if request.env['HTTP_PIN'] == bucketlist.pin
@@ -54,7 +64,7 @@ class BucketlistsController < Sinatra::Base
       bucketlist.save
       res = bucketlist
     else
-      res = {"error" => "Could not delete, invalid PIN"}
+      res = {"error" => "Could not update, invalid PIN"}
     end
     res.to_json
   end
@@ -67,7 +77,7 @@ class BucketlistsController < Sinatra::Base
       bucketlist_destination.save
       res = bucketlist_destination
     else
-      res = {"error" => "Could not delete, invalid PIN"}
+      res = {"error" => "Could not add destination, invalid PIN"}
     end
     res.to_json
   end
