@@ -12,7 +12,8 @@ class DestinationsController < Sinatra::Base
   get "/destinations/:id" do
     destination = Destination.find(params[:id])
     destination.to_json(:include => {
-      :bucketlists => { only: [:id, :name, :created_by]}
+      :bucketlists => { only: [:id, :name, :created_by]},
+      :comments => {}
     })
   end
 
