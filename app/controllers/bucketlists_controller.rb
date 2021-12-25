@@ -31,6 +31,14 @@ class BucketlistsController < Sinatra::Base
       res = bucketlist.like
     when 'dislike'
       res = bucketlist.dislike
+    when 'updateDetails'
+      if request.env['HTTP_PIN'] == bucketlist.pin
+        bucketlist.description = params[:description]
+        bucketlist.save
+        res = bucketlist
+      else
+        res = {"error" => "Could not update, invalid PIN"}
+      end
     end
     res.to_json;
   end
@@ -61,18 +69,6 @@ class BucketlistsController < Sinatra::Base
     )
     bucketlist.comments << comment
     comment.to_json
-  end
-
-  patch "/bucketlists/:id" do
-    bucketlist = Bucketlist.find(params[:id])
-    if request.env['HTTP_PIN'] == bucketlist.pin
-      bucketlist.description = params[:description]
-      bucketlist.save
-      res = bucketlist
-    else
-      res = {"error" => "Could not update, invalid PIN"}
-    end
-    res.to_json
   end
 
   patch "/bucketlists/:id/destinations/:bucketlist_destination_id" do
