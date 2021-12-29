@@ -155,6 +155,7 @@ fetch(`http://localhost:9292/bucketlists/1/auth`, {
 Will return `{ "permission": false }` if the PIN saved in the database is NOT 1234, or `{ "permission": true }` if it is.
 
 * **POST** `/bucketlists`
+
 Post requests to this endpoint will create and save a bucketlist. The body of the request must contain a `name`, `description`, `created_by`, and a `pin`.
 
 In response, the newly created bucketlist is returned as an object.
@@ -176,6 +177,7 @@ Example response:
 ```
 
 * **POST** `/bucketlists/:id/comments`
+
 Requires a `created_by` and `comment` in the body of the request. Returns the comment added to the bucketlist as an object.
 
 Example response:
