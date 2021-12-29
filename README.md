@@ -39,6 +39,8 @@ This will run your server on port
 
 Have fun!
 
+*For the full project, be sure to install the [wanderlist-client](https://github.com/wilfredbayudan/wanderlist-client).*
+
 ## Usage
 
 ### Endpoints
