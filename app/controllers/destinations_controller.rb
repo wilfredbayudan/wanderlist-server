@@ -64,12 +64,4 @@ class DestinationsController < Sinatra::Base
       res.to_json
   end
 
-  get "/destinations/:id" do
-    destination = Destination.find(params[:id])
-    destination.to_json(:include => [
-      :comments,
-      :bucketlists
-    ])
-  end
-
 end

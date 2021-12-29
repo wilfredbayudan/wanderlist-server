@@ -98,7 +98,7 @@ For example, making a `GET` request to `/bucketlists/findby/name/world%20wonders
 
 * **GET** `/bucketlists/:id`
 
-Finds and retrieves information for the specified bucketlist using it's `id`.
+Finds and retrieves information for the specified bucketlist using it's `id`. Returns the bucketlist as an object.
 
 *Example response:*
 
@@ -193,6 +193,98 @@ Requires a `created_by` and `comment` in the body of the request. Returns the co
     "updated_at": "2021-12-29T09:12:17.272Z"
 }
 ```
+
+* **DELETE** `/bucketlists/:id/comments/:comment_id`
+
+Deletes the specified comment from a bucketlist. Returns the deleted comment as an object.
+
+* **DELETE** `/bucketlists/:id`
+
+Deletes the specified bucketlist. Requires the correct `PIN` to be sent in the headers of the request. Returns the deleted bucketlist as an object.
+
+---
+
+#### Destinations
+* **GET** `/destinations`
+
+Retrieves an array of all destinations in the database.
+
+*Example response:*
+```
+[
+    ...,
+    {
+        "id": 10,
+        "label": "Madrid, Spain",
+        "lng": -3.669245,
+        "lat": 40.429913,
+        "likes": 121,
+        "bucketlists": [...]
+    },
+    {
+        "id": 11,
+        "label": "Honolulu, HI, USA",
+        "lng": -157.859944,
+        "lat": 21.308822,
+        "likes": 121,
+        "bucketlists": [...]
+    },
+    {
+        "id": 12,
+        "label": "London, England, United Kingdom",
+        "lng": -0.099076,
+        "lat": 51.509648,
+        "likes": 99,
+        "bucketlists": [...]
+    },
+    ...
+]
+```
+
+* **GET** `/destinations/:id`
+
+Finds and retrieves the information regarding a specific destination using it's `id`. Returns the destination as an object.
+
+*Example response:*
+```
+{
+    "id": 1,
+    "label": "Taj Mahal, Agra, UP, India",
+    "lng": 78.04207,
+    "lat": 27.175031,
+    "likes": 12,
+    "bucketlists": [
+        {
+            "id": 1,
+            "name": "World Wonders",
+            "created_by": "Wilfred Bayudan"
+        }
+    ],
+    "comments": []
+}
+```
+
+* **POST** `/bucketlists/:id/destinations`
+
+Finds or creates a destination based on the `lng`, `lat`, and `label` passed in the body of the request. If a destination is found with the same `lng` and `lat`, it is added to the bucketlist. If a destination is not found, it is created with the `label`. The added bucketlist destination (joining table) is returned as an object.
+
+*Example response:*
+```
+{
+    "id": 17,
+    "notes": null,
+    "destination": {
+        "id": 8,
+        "label": "New York, NY, USA",
+        "lng": -73.9708,
+        "lat": 40.68295,
+        "likes": 333
+    }
+}
+```
+
+There are a few additional endpoints included in this project, check back soon to learn more!
+
 
 ## Contributing
 
