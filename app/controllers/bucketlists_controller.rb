@@ -79,7 +79,7 @@ class BucketlistsController < Sinatra::Base
       bucketlist_destination.save
       res = bucketlist_destination
     else
-      res = {"error" => "Could not add destination, invalid PIN"}
+      res = {"error" => "Could not update destination, invalid PIN"}
     end
     res.to_json
   end
