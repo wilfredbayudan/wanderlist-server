@@ -63,6 +63,73 @@ bucketlist1.comments << Comment.create(
   comment: 'Your first comment!'
 )
 
+bucketlist2 = Bucketlist.create(
+  name: 'Popular Cities',
+  description: 'For the lover of busy streets and high rises.',
+  created_by: 'John Doe',
+  pin: '1234',
+  likes: 122
+)
+
+bucketlist2.destinations << Destination.create(
+  label: 'New York, NY, USA',
+  lat: 40.68295,
+  lng: -73.9708,
+  likes: 333
+)
+
+bucketlist2.destinations << Destination.find_by(label: 'China')
+
+bucketlist2.destinations << Destination.create(
+  label: 'Paris, France',
+  lat: 48.858705,
+  lng: 2.342865,
+  likes: 333
+)
+
+bucketlist2.destinations << Destination.create(
+  label: 'Madrid, Spain',
+  lat: 40.429913,
+  lng: -3.669245,
+  likes: 121
+)
+
+bucketlist2.destinations << Destination.create(
+  label: 'Honolulu, HI, USA',
+  lat: 21.308822,
+  lng: -157.859944,
+  likes: 121
+)
+
+bucketlist2.destinations << Destination.create(
+  label: 'London, England, United Kingdom',
+  lat: 51.509648,
+  lng: -0.099076,
+  likes: 99
+)
+
+bucketlist2.destinations << Destination.create(
+  label: 'Tokyo, Japan',
+  lat: 35.695126,
+  lng: 139.75391,
+  likes: 653
+)
+
+bucketlist2.comments << Comment.create(
+  created_by: 'John Doe',
+  comment: "I'd love to visit these places some day!"
+)
+
+bucketlist3 = Bucketlist.create(
+  name: 'Eurolovers',
+  description: 'Europe is filled with historical sites to see.',
+  created_by: 'Jane Smith',
+  pin: '1234',
+  likes: 67
+)
+
+bucketlist3.destinations << Destination.find_by(label: 'Madrid, Spain')
+bucketlist3.destinations << Destination.find_by(label: 'London, England, United Kingdom')
 
 puts "✅ Done seeding!"
  
