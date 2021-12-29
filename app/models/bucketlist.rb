@@ -10,13 +10,15 @@ class Bucketlist < ActiveRecord::Base
   has_many :destinations, through: :bucketlist_destinations
   has_many :comments
 
-  def self.verify_pin(id:, pin:)
-    bucketlist = Bucketlist.find(id)
-    if pin == bucketlist.pin
-      true
-    else
-      false
-    end
+  def add_destination(lat:, lng:, label:)
+    destination = Destination.find_or_create_by(
+      lng: lng,
+      lat: lat
+    )
+    destination.label = label
+    destination.save
+    self.destinations << destination
+    self.bucketlist_destinations.last
   end
 
 end

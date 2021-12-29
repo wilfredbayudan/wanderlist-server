@@ -31,14 +31,16 @@ class DestinationsController < Sinatra::Base
   post "/bucketlists/:id/destinations" do
     bucketlist = Bucketlist.find(params[:id])
     if request.env['HTTP_PIN'] == bucketlist.pin
-      destination = Destination.find_or_create_by(
-        lng: params[:lng],
-        lat: params[:lat]
-      )
-      destination.label = params[:label]
-      destination.save
-      bucketlist.destinations << destination
-      res = bucketlist.bucketlist_destinations.last.to_json(only: [:notes, :id], :include => :destination)
+      # destination = Destination.find_or_create_by(
+      #   lng: params[:lng],
+      #   lat: params[:lat]
+      # )
+      # destination.label = params[:label]
+      # destination.save
+      # bucketlist.destinations << destination
+      # res = bucketlist.bucketlist_destinations.last.to_json(only: [:notes, :id], :include => :destination)
+      added_destination = bucketlist.add_destination(lng: params[:lng], lat: params[:lat], label: params[:label])
+      res = added_destination.to_json(only: [:notes, :id], :include => :destination)
     else
       res.to_json = {"error" => "Could not add destination, invalid PIN"}
     end
