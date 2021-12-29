@@ -142,9 +142,9 @@ Example response:
 
 * **GET** `/bucketlists/:id/auth`
 
-When making a GET request to this endpoint, the headers of the request must contain a `PIN` key. The `PIN` key in the header will be compared with the PIN stored in the database and return a boolean. 
+When making a GET request to this endpoint, the headers of the request must contain a `PIN`. The `PIN` included in the headers will be compared with the PIN stored in the database and return a boolean. 
 
-Sample request using JavaScript fetch():
+Sample request using JavaScript `fetch()`:
 ```
 fetch(`http://localhost:9292/bucketlists/1/auth`, {
         headers: {
@@ -153,6 +153,44 @@ fetch(`http://localhost:9292/bucketlists/1/auth`, {
       })
 ```
 Will return `{ "permission": false }` if the PIN saved in the database is NOT 1234, or `{ "permission": true }` if it is.
+
+* **POST** `/bucketlists`
+Post requests to this endpoint will create and save a bucketlist. The body of the request must contain a `name`, `description`, `created_by`, and a `pin`.
+
+In response, the newly created bucketlist is returned as an object.
+
+Example response:
+```
+{
+    "id": 6,
+    "name": "Mr. Postman",
+    "description": "A song is not a bucketlist!",
+    "created_by": "Lil Wayne",
+    "likes": 0,
+    "created_at": "2021-12-29T09:09:32.764Z",
+    "updated_at": "2021-12-29T09:09:32.764Z",
+    "pin": "1234",
+    "bucketlist_destinations": [],
+    "tags": []
+}
+```
+
+* **POST** `/bucketlists/:id/comments`
+Requires a `created_by` and `comment` in the body of the request. Returns the comment added to the bucketlist as an object.
+
+Example response:
+```
+{
+    "id": 3,
+    "created_by": "John Doe",
+    "comment": "This is my comment from John!",
+    "rating": 0,
+    "bucketlist_id": 1,
+    "destination_id": null,
+    "created_at": "2021-12-29T09:12:17.264Z",
+    "updated_at": "2021-12-29T09:12:17.272Z"
+}
+```
 
 ## Contributing
 
