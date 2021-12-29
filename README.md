@@ -76,6 +76,84 @@ Example response:
 ]
 ```
 
+* **GET** `/bucketlists/findby/:attr/:query`
+
+Searches for bucketlists using a specified attribute (:attr) and returns an array of results. If no results are found, an empty array is returned.
+
+For example, making a `GET` request to `/bucketlists/findby/name/world%20wonders` will result in a response such as:
+
+```
+[
+  {
+    "id": 1,
+    "name": "World Wonders",
+    "description": "A list of wonders to see across the globe.",
+    "created_by": "Wilfred Bayudan",
+    "likes": 134,
+    "created_at": "2021-12-29T08:16:50.700Z",
+    "updated_at": "2021-12-29T08:16:50.700Z"
+  }
+]
+```
+
+* **GET** `/bucketlists/:id`
+
+Finds and retrieves information for the specified bucketlist using it's `id`.
+
+Example response:
+
+```
+{
+  "id": 3,
+  "name": "Eurolovers",
+  "description": "Europe is filled with historical sites to see.",
+  "created_by": "Jane Smith",
+  "likes": 67,
+  "created_at": "2021-12-29T08:16:50.729Z",
+  "updated_at": "2021-12-29T08:16:50.729Z",
+  "bucketlist_destinations": [
+    {
+      "id": 15,
+      "notes": null,
+      "destination": {
+        "id": 10,
+        "label": "Madrid, Spain",
+        "lng": -3.669245,
+        "lat": 40.429913,
+        "likes": 121
+      }
+    },
+    {
+      "id": 16,
+      "notes": null,
+      "destination": {
+        "id": 12,
+        "label": "London, England, United Kingdom",
+        "lng": -0.099076,
+        "lat": 51.509648,
+        "likes": 99
+      }
+    }
+  ],
+  "tags": [],
+  "comments": []
+}
+```
+
+* **GET** `/bucketlists/:id/auth`
+
+When making a GET request to this endpoint, the headers of the request must contain a `PIN` key. The `PIN` key in the header will be compared with the PIN stored in the database and return a boolean. 
+
+Sample request using JavaScript fetch():
+```
+fetch(`http://localhost:9292/bucketlists/1/auth`, {
+        headers: {
+          'PIN': 1234
+        }
+      })
+```
+Will return `{ "permission": false }` if the PIN saved in the database is NOT 1234, or `{ "permission": true }` if it is.
+
 ## Contributing
 
 Contributing Bug reports and pull requests are welcome on GitHub at https://github.com/wilfredbayudan/wanderlist-server. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the code of conduct.
