@@ -1,4 +1,9 @@
+require_relative '../modules/like'
+
 class Bucketlist < ActiveRecord::Base
+
+  include Like::InstanceMethods
+
   has_many :bucketlist_tags
   has_many :tags, through: :bucketlist_tags
   has_many :bucketlist_destinations
@@ -12,20 +17,6 @@ class Bucketlist < ActiveRecord::Base
     else
       false
     end
-  end
-
-  def like
-    self.likes += 1;
-    self.save
-    self.likes
-  end
-
-  def dislike
-    if self.likes > 0
-      self.likes -= 1;
-      self.save
-    end
-    self.likes
   end
 
 end
