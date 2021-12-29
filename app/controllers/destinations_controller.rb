@@ -50,6 +50,11 @@ class DestinationsController < Sinatra::Base
     if request.env['HTTP_PIN'] == bucketlist.pin 
       bucketlist_destination = BucketlistDestination.find(params[:bucketlist_destination_id])
       bucketlist_destination.destroy
+      lists_with_destination = BucketlistDestination.where("destination_id = ?", bucketlist_destination.destination_id)
+      if lists_with_destination.length == 0
+        destination = Destination.find(bucketlist_destination.destination_id)
+        destination.destroy
+      end
       res = bucketlist_destination
     else 
       res = {"error" => "Could not remove destination, invalid PIN"}
