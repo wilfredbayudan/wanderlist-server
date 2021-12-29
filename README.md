@@ -43,6 +43,7 @@ Have fun!
 
 ### Endpoints
 * `/bucketlists` - **GET**
+
 Making a `GET` request to this endpoint will retrieve a list of all bucketlists in the database.
 
 Example response:
