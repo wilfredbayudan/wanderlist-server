@@ -28,7 +28,8 @@ Before you continue, ensure you have met the following requirements:
 ---
 1. [Fork and clone](https://github.com/wilfredbayudan/wanderlist-server/fork) this repository.
 2. Run `bundle install` to install dependency gems.
-3. Start the server by running:
+3. Run `rake db:migrate` to run migrations and seed the database.
+4. Start the server by running:
 ```console
 $ bundle exec rake server
 ```
