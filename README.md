@@ -42,7 +42,7 @@ Have fun!
 ## Usage
 
 ### Endpoints
-* `/bucketlists` - **GET**
+* **GET** `/bucketlists`
 
 Making a `GET` request to this endpoint will retrieve a list of all bucketlists in the database.
 
