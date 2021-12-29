@@ -8,7 +8,7 @@ Live Backend Demo at https://wanderlist-server.herokuapp.com
 
 ![Wanderlist Demo](preview.gif)
 
-See [Wanderlist-Client](https://github.com/wilfredbayudan/wanderlist-client) for the frontend repository.
+See [wanderlist-client](https://github.com/wilfredbayudan/wanderlist-client) for the frontend repository.
 
 ## Features
 - [x] **C**reate / **R**ead / **U**pdate / **D**elete bucketlists
