@@ -47,6 +47,7 @@ class BucketlistsController < Sinatra::Base
     bucketlist = Bucketlist.find(params[:id])
     if bucketlist.verify_pin(request.env['HTTP_PIN'])
       bucketlist.bucketlist_destinations.destroy_all
+      bucketlist.comments.destroy_all
       bucketlist.destroy
       res = bucketlist
     else
