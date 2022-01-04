@@ -32,7 +32,7 @@ class BucketlistsController < Sinatra::Base
     when 'dislike'
       res = bucketlist.dislike
     when 'updateDetails'
-      if request.env['HTTP_PIN'] == bucketlist.pin
+      if bucketlist.verify_pin(request.env['HTTP_PIN'])
         bucketlist.description = params[:description]
         bucketlist.save
         res = bucketlist
@@ -45,7 +45,7 @@ class BucketlistsController < Sinatra::Base
 
   delete "/bucketlists/:id" do
     bucketlist = Bucketlist.find(params[:id])
-    if request.env['HTTP_PIN'] == bucketlist.pin
+    if bucketlist.verify_pin(request.env['HTTP_PIN'])
       bucketlist.bucketlist_destinations.destroy_all
       bucketlist.destroy
       res = bucketlist
@@ -63,17 +63,15 @@ class BucketlistsController < Sinatra::Base
 
   post "/bucketlists/:id/comments" do
     bucketlist = Bucketlist.find(params[:id])
-    comment = Comment.create(
+    bucketlist.add_comment(
       created_by: params[:created_by],
       comment: params[:comment]
-    )
-    bucketlist.comments << comment
-    comment.to_json
+    ).to_json
   end
 
   patch "/bucketlists/:id/destinations/:bucketlist_destination_id" do
     bucketlist = Bucketlist.find(params[:id])
-    if request.env['HTTP_PIN'] == bucketlist.pin
+    if bucketlist.verify_pin(request.env['HTTP_PIN'])
       bucketlist_destination = BucketlistDestination.find(params[:bucketlist_destination_id])
       bucketlist_destination.notes = params[:notes]
       bucketlist_destination.save
@@ -100,7 +98,7 @@ class BucketlistsController < Sinatra::Base
   get "/bucketlists/:id/auth" do
     bucketlist = Bucketlist.find(params[:id])
 
-    res = { "permission" => bucketlist.pin == request.env['HTTP_PIN'] }
+    res = { "permission" => bucketlist.verify_pin(request.env['HTTP_PIN']) }
     res.to_json
   end
 

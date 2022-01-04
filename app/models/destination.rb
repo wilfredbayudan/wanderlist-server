@@ -1,8 +1,8 @@
-require_relative '../modules/like'
+require_relative '../modules/likes'
 
 class Destination < ActiveRecord::Base
 
-  include Like::InstanceMethods
+  include Likes::InstanceMethods
 
   has_many :comments
   has_many :bucketlist_destinations

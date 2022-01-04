@@ -1,4 +1,4 @@
-module Like
+module Likes
   module InstanceMethods
 
     def like
